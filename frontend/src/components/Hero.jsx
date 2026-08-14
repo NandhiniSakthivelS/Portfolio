@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Hero.css';
 
+const getImageUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  const cleanPath = path.replace(/^\//, '');
+  let base = import.meta.env.BASE_URL || '/Portfolio/';
+  if (!base.endsWith('/')) base += '/';
+  return encodeURI(`${base}${cleanPath}`);
+};
+
 const Hero = () => {
   const roles = [
     "Software Developer",
@@ -70,7 +79,7 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Passionate about creating innovative solutions with cutting-edge technology. Specializing in building scalable, user-centric, and responsive web applications.
+            Full-Stack Developer bridging scalable web engineering and AI to build intelligent, user-centric products.
           </motion.p>
 
           <motion.div
@@ -162,7 +171,18 @@ const Hero = () => {
               ease: [0.22, 1, 0.36, 1]
             }}
           >
-            <img src="profile.jpeg" alt="Nandhini Sakthivel" className="profile-img" />
+            <img
+              src={getImageUrl('profile.jpeg')}
+              alt="Nandhini Sakthivel"
+              className="profile-img"
+              onError={(e) => {
+                if (e.currentTarget.src.includes('/Portfolio/')) {
+                  e.currentTarget.src = '/profile.jpeg';
+                } else {
+                  e.currentTarget.src = './profile.jpeg';
+                }
+              }}
+            />
           </motion.div>
         </div>
       </div>

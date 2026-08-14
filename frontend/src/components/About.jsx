@@ -19,11 +19,11 @@ const Counter = ({ value }) => {
     if (isInView) {
       count.set(0); // Reset to 0 before starting
       const numericValue = parseFloat(value.replace(/[^0-9.]/g, ''));
-      const controls = animate(count, numericValue, { 
+      const controls = animate(count, numericValue, {
         duration: 5,
         ease: "easeOut"
       });
-      
+
       const unsubscribe = rounded.on("change", (v) => {
         setDisplayValue(v + (value.includes('+') ? '+' : ''));
       });
@@ -40,8 +40,8 @@ const Counter = ({ value }) => {
 
 const About = () => {
   const stats = [
-    { number: '8.96', label: 'CGPA' },
-    { number: '4+', label: 'Projects' },
+    { number: '8.81', label: 'CGPA' },
+    { number: '6+', label: 'Projects' },
     { number: '5+', label: 'Certifications' }
   ];
 
@@ -53,13 +53,13 @@ const About = () => {
             <motion.h2
               className="section-title-with-icon-centered"
               initial={{ opacity: 0, scale: 0.85, y: 20 }}
-              whileInView={{ 
-                opacity: 1, 
+              whileInView={{
+                opacity: 1,
                 scale: [0.85, 1.05, 1],
                 y: 0
               }}
               viewport={{ once: false, amount: 0.5 }}
-              transition={{ 
+              transition={{
                 duration: 0.8,
                 ease: "easeOut"
               }}
@@ -70,10 +70,10 @@ const About = () => {
 
             <div className="about-bio">
               <p className="about-text">
-                I’m an aspiring Full Stack Developer and Computer Science Engineering student passionate about building modern, scalable, and user-friendly web applications. I enjoy transforming ideas into real-world digital solutions through clean frontend design and efficient backend development.
+                I’m an aspiring Full Stack Developer and Computer Science Engineering student passionate about building modern, scalable web applications, with a strong focus on Java programming. With hands-on experience in React.js, Spring Boot, MySQL, and REST APIs, I have developed multiple full-stack projects focused on improving user experience
               </p>
               <p className="about-text">
-                With hands-on experience in React.js, Spring Boot, MySQL, and REST APIs, I have developed multiple full-stack projects focused on solving practical problems and improving user experience. I am highly interested in creating responsive applications, exploring new technologies, and continuously improving my development skills.
+                I am highly interested in creating responsive applications, expanding into emerging fields like Generative AI and Agentic AI, and continuously improving my development skills.
               </p>
             </div>
 
@@ -87,8 +87,8 @@ const About = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <svg className="stat-circle-svg" viewBox="0 0 100 100">
-                    <circle 
-                      cx="50" cy="50" r="48" 
+                    <circle
+                      cx="50" cy="50" r="48"
                       className="circle-bg"
                     />
                     <motion.circle
@@ -99,7 +99,7 @@ const About = () => {
                       transition={{ duration: 5, delay: 0.5 + index * 0.1, ease: "easeInOut" }}
                     />
                   </svg>
-                  
+
                   <div className="stat-info">
                     <Counter value={stat.number} />
                     <span className="stat-label">{stat.label}</span>

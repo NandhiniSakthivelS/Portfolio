@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, CheckCircle, Timer, Sun, Moon } from 'lucide-react';
+import { Download, CheckCircle, Timer } from 'lucide-react';
 import './Navbar.css';
 
-const Navbar = ({ toggleTheme, theme, accent, setAccent }) => {
+const getImageUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  const cleanPath = path.replace(/^\//, '');
+  let base = import.meta.env.BASE_URL || '/Portfolio/';
+  if (!base.endsWith('/')) base += '/';
+  return encodeURI(`${base}${cleanPath}`);
+};
+
+const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [dateTime, setDateTime] = useState(new Date());
-
-  const accents = [
-    { color: '#6366f1', name: 'Indigo' },
-    { color: '#a855f7', name: 'Purple' },
-    { color: '#10b981', name: 'Emerald' },
-    { color: '#f59e0b', name: 'Amber' }
-  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,7 +78,18 @@ const Navbar = ({ toggleTheme, theme, accent, setAccent }) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <img src="profile.jpeg" alt="Avatar" className="nav-avatar" />
+              <img
+                src={getImageUrl('profile.jpeg')}
+                alt="Avatar"
+                className="nav-avatar"
+                onError={(e) => {
+                  if (e.currentTarget.src.includes('/Portfolio/')) {
+                    e.currentTarget.src = '/profile.jpeg';
+                  } else {
+                    e.currentTarget.src = './profile.jpeg';
+                  }
+                }}
+              />
               <span className="logo-text">Portfolio</span>
             </motion.div>
 
@@ -112,32 +125,8 @@ const Navbar = ({ toggleTheme, theme, accent, setAccent }) => {
             </ul>
 
             <div className="nav-actions">
-              <div className="accent-picker">
-                {accents.map((item) => (
-                  <motion.button
-                    key={item.color}
-                    className={`accent-dot ${accent === item.color ? 'active' : ''}`}
-                    style={{ backgroundColor: item.color }}
-                    onClick={() => setAccent(item.color)}
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.8 }}
-                    title={item.name}
-                  />
-                ))}
-              </div>
-
-              <motion.button
-                className="theme-toggle"
-                onClick={toggleTheme}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Toggle Theme"
-              >
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-              </motion.button>
-
               <motion.a
-                href="https://drive.google.com/file/d/1FXTorcY4b4KUuaZg7Gxp1KBeFZhERs4Z/view?usp=drive_link"
+                href="https://drive.google.com/file/d/1A4Qbn6oGDu2D-LX_9Lgn-yEQlGNdHKdn/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="download-btn"

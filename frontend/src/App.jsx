@@ -15,8 +15,6 @@ import './App.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
-  const [accent, setAccent] = useState(localStorage.getItem('accent') || '#6366f1');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -25,32 +23,9 @@ function App() {
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  useEffect(() => {
-    document.documentElement.style.setProperty('--accent-color', accent);
-    // Generate a slightly darker hover color automatically or use a mapping
-    const hoverColor = accent === '#6366f1' ? '#4f46e5' : 
-                       accent === '#a855f7' ? '#9333ea' :
-                       accent === '#10b981' ? '#059669' :
-                       accent === '#f59e0b' ? '#d97706' : accent;
-    document.documentElement.style.setProperty('--accent-hover', hoverColor);
-    
-    // Add RGB calculation for rgba() usage in CSS
-    const hexToRgb = (hex) => {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
-    };
-    document.documentElement.style.setProperty('--accent-color-rgb', hexToRgb(accent));
-    
-    localStorage.setItem('accent', accent);
-  }, [accent]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -95,7 +70,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app" data-theme={theme}>
+    <div className="app" data-theme="light">
       <AnimatePresence mode="wait">
         {loading ? (
           <Intro key="intro" onFinish={() => setLoading(false)} />
@@ -109,10 +84,10 @@ function App() {
             <motion.div className="scroll-progress" style={{ scaleX }} />
             <div className="bg-gradient"></div>
             
-            <Navbar theme={theme} toggleTheme={toggleTheme} accent={accent} setAccent={setAccent} />
+            <Navbar />
             
             <main>
-              <Hero accent={accent} />
+              <Hero />
               <About />
               <Skills />
               <Projects />

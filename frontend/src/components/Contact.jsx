@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, MapPin, Send, CheckCircle } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 
 const GithubIcon = ({ size = 24 }) => (
   <svg
@@ -37,12 +37,9 @@ const LinkedinIcon = ({ size = 24 }) => (
   </svg>
 );
 
-import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 const Contact = () => {
-  const formRef = useRef();
-  const [status, setStatus] = useState('');
   const [copyStatus, setCopyStatus] = useState(false);
 
   const handleEmailClick = (e) => {
@@ -52,36 +49,6 @@ const Contact = () => {
       setCopyStatus(true);
       setTimeout(() => setCopyStatus(false), 3000);
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus('sending');
-
-    const templateParams = {
-      from_name: formRef.current.user_name.value,
-      from_email: formRef.current.user_email.value,
-      reply_to: formRef.current.user_email.value,
-      message: formRef.current.message.value,
-      user_email: formRef.current.user_email.value, // Keep this for backward compatibility with template
-      user_name: formRef.current.user_name.value    // Keep this for backward compatibility with template
-    };
-
-    emailjs.send(
-      'service_z3clq1m',
-      'template_yvepjbf',
-      templateParams,
-      'gU84ebH9ThshxOT67'
-    )
-      .then((result) => {
-        console.log(result.text);
-        setStatus('success');
-        formRef.current.reset();
-        setTimeout(() => setStatus(''), 5000);
-      }, (error) => {
-        console.log(error.text);
-        setStatus('error');
-      });
   };
 
   return (
@@ -114,48 +81,6 @@ const Contact = () => {
         </motion.div>
 
         <div className="contact-main">
-          <motion.form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="contact-form"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="form-group">
-              <input type="text" name="user_name" placeholder="Your Name" required />
-            </div>
-            <div className="form-group">
-              <input type="email" name="user_email" placeholder="Your Email" required />
-            </div>
-            <div className="form-group">
-              <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-            </div>
-            <button
-              type="submit"
-              className={`submit-button ${status === 'sending' ? 'disabled' : ''}`}
-              disabled={status === 'sending'}
-            >
-              {status === 'sending' ? (
-                <span>Sending...</span>
-              ) : status === 'success' ? (
-                <>
-                  <span>Message Sent</span>
-                  <CheckCircle size={18} />
-                </>
-              ) : (
-                <>
-                  <span>Send Message</span>
-                  <Send size={18} />
-                </>
-              )}
-            </button>
-            {status === 'error' && (
-              <p className="error-message">Something went wrong. Please try again.</p>
-            )}
-          </motion.form>
-
           <motion.div
             className="social-footer"
             initial={{ opacity: 0, y: 20 }}
@@ -170,7 +95,7 @@ const Contact = () => {
                 title="Email Me"
                 onClick={handleEmailClick}
               >
-                <Mail size={25} />
+                <Mail size={26} />
                 <AnimatePresence>
                   {copyStatus && (
                     <motion.span 
@@ -185,13 +110,16 @@ const Contact = () => {
                 </AnimatePresence>
               </a>
               <a href="https://www.linkedin.com/in/nandhinisakthivel01" target="_blank" rel="noreferrer" className="social-icon-box linkedin" title="LinkedIn">
-                <LinkedinIcon size={25} />
+                <LinkedinIcon size={26} />
               </a>
               <a href="https://github.com/NandhiniSakthivels" target="_blank" rel="noreferrer" className="social-icon-box github" title="GitHub">
-                <GithubIcon size={25} />
+                <GithubIcon size={26} />
               </a>
             </div>
-            <p className="location-text">Tiruppur, Tamil Nadu, India</p>
+            <p className="location-text">
+              <MapPin size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '6px' }} />
+              Tiruppur, Tamil Nadu, India
+            </p>
           </motion.div>
         </div>
       </div>

@@ -10,7 +10,7 @@ import './Skills.css';
 const periodicSkills = [
   // Languages
   { symbol: "Jv", name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", group: "language" },
-  { symbol: "C", name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg", group: "language" },
+  { symbol: "C#", name: "C#", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg", group: "language" },
   { symbol: "Js", name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", group: "frontend" },
   { symbol: "Rt", name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", group: "frontend" },
   { symbol: "Ht", name: "HTML", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", group: "frontend" },

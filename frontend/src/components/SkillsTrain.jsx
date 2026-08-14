@@ -3,7 +3,7 @@ import './SkillsTrain.css';
 
 const SkillsTrain = () => {
   const skills = [
-    "Java", "React.js", "Node.js", "Spring Boot", "MySQL", "MongoDB", "JavaScript",
+    "Java", "C#", "React.js", "Node.js", "Spring Boot", "MySQL", "MongoDB", "JavaScript",
     "HTML", "CSS", "Tailwind CSS", "Git", "Postman", "REST APIs",
     "AWS"
   ];
